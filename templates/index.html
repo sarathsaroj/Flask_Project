@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit Image Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            margin: 20px;
+        }
+        .post {
+            margin-bottom: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Mallu Memes</h1>
+
+    <!-- Search form -->
+    <form method="POST">
+        <label for="query">Search Reddit for Images:</label>
+        <input type="text" id="query" name="query" value="{{ query }}" placeholder="Enter keyword" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display image posts -->
+    <div>
+        {% if posts %}
+            <h2>Results for "{{ query }}":</h2>
+            {% for post in posts %}
+                <div class="post">
+                    <h3>{{ post.title }} (from r/{{ post.subreddit }})</h3>
+                    <img src="{{ post.image_url }}" alt="{{ post.title }}">
+                </div>
+            {% endfor %}
+        {% else %}
+            {% if query %}
+                <p>No image posts found for "{{ query }}".</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
